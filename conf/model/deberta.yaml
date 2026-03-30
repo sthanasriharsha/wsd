@@ -1,4 +1,4 @@
-transformer_model: 'microsoft/deberta-large'
+transformer_model: data/deberta-large
 
 sense_extractor:
   _target_: src.sense_extractors.DebertaPositionalExtractor
