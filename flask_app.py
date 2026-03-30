@@ -815,8 +815,9 @@ def download(filename):
 if __name__ == "__main__":
     print("\n" + "="*55)
     print("  WSD Flask UI")
-    print("  Open your browser at:  http://127.0.0.1:5000")
+    print("  Hugging Face Live Link starting...")
     print("="*55 + "\n")
-    # debug=False because the AI models are already loaded;
-    # debug=True would reload them twice and cause errors.
-    app.run(host="0.0.0.0", port=5000, debug=False)
+    
+    # IMPORTANT: Change port to 7860 for Hugging Face
+    app.run(host="0.0.0.0", port=7860, debug=False)
+
