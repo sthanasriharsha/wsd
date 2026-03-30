@@ -1,18 +1,19 @@
-# Use a Python image with PyTorch pre-installed
 FROM python:3.9
 
-# Set the working directory
+# Create a user to avoid running as root (Hugging Face requirement)
+RUN useradd -m -u 1000 user
+USER user
+ENV PATH="/home/user/.local/bin:$PATH"
+
 WORKDIR /app
 
-# Copy your files into the container
-COPY . .
-
-# Install dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+# Copy requirements and install
+COPY --chown=user requirements.txt requirements.txt
+RUN pip install --no-cache-dir --upgrade -r requirements.txt
 RUN python -m spacy download en_core_web_sm
 
-# Expose the port Flask will run on
-EXPOSE 7860
+# Copy the rest of your files
+COPY --chown=user . /app
 
-# Command to run your app (Hugging Face expects port 7860)
+# Run your Flask app on port 7860
 CMD ["python", "flask_app.py"]
